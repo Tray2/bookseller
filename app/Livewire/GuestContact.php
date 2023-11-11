@@ -3,12 +3,9 @@
 namespace App\Livewire;
 
 use App\Models\Contact;
-use Filament\Actions\Concerns\HasInfolist;
 use Filament\Actions\Concerns\InteractsWithActions;
-use Filament\Actions\Contracts\HasActions;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
-use Filament\Infolists\Components\Actions\Action;
 use Filament\Infolists\Components\IconEntry;
 use Filament\Infolists\Components\IconEntry\IconEntrySize;
 use Filament\Infolists\Components\Section;
@@ -16,8 +13,6 @@ use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Concerns\InteractsWithInfolists;
 use Filament\Infolists\Contracts\HasInfolists;
 use Filament\Infolists\Infolist;
-use Filament\Tables\Actions\LinkAction;
-use Filament\Tables\Columns\TextColumn;
 use Livewire\Component;
 
 class GuestContact extends Component implements HasForms, HasInfolists
