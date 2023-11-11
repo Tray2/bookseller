@@ -3,9 +3,10 @@
 namespace App\Livewire;
 
 use App\Models\Book;
+use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
 use Filament\Forms\Concerns\InteractsWithForms;
-use Filament\Actions\Concerns\InteractsWithActions;
+use Filament\Forms\Contracts\HasForms;
 use Filament\Infolists\Components\ImageEntry;
 use Filament\Infolists\Components\Section;
 use Filament\Infolists\Components\TextEntry;
@@ -18,13 +19,11 @@ use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
-use Filament\Forms\Contracts\HasForms;
 use Filament\Tables\Table;
-use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use function Filament\Support\format_money;
 
-class GuestIndex extends Component implements HasForms, HasTable, HasActions, HasInfolists
+class GuestBooks extends Component implements HasForms, HasTable, HasActions, HasInfolists
 {
     use InteractsWithTable;
     use InteractsWithForms;
@@ -34,21 +33,35 @@ class GuestIndex extends Component implements HasForms, HasTable, HasActions, Ha
     public function table(Table $table): Table
     {
         return $table
-            ->query(Book::query()->latest()->take(10))
+            ->query(Book::query())
             ->columns([
                 ImageColumn::make('images.name')
                     ->label('Cover')
                     ->limit(1)
                     ->limitedRemainingText()
                     ->height(150),
-                TextColumn::make('authors.name'),
-                TextColumn::make('title'),
-                TextColumn::make('published'),
+                TextColumn::make('authors.name')
+                    ->sortable()
+                    ->searchable(),
+                TextColumn::make('title')
+                    ->sortable()
+                    ->searchable(),
+                TextColumn::make('published')
+                    ->sortable()
+                    ->searchable(),
                 TextColumn::make('genre.name')
-                    ->label('Genre'),
+                    ->label('Genre')
+                    ->sortable()
+                    ->searchable(),
                 TextColumn::make('format.name')
                     ->label('Format')
+                    ->sortable()
+                    ->searchable(),
             ])
+            ->defaultSort(
+                'authors.name',
+                'published',
+            )
             ->actions([
                 ViewAction::make()
                     ->infolist([
@@ -91,7 +104,7 @@ class GuestIndex extends Component implements HasForms, HasTable, HasActions, Ha
                                     ->formatStateUsing(function (Book $record) {
                                         return format_money(
                                             $record->discounted_price ?? $record->price,
-                                                   config('app.currency')
+                                            config('app.currency')
                                         );
                                     })
                                     ->badge(function (Book $record) {
@@ -112,12 +125,12 @@ class GuestIndex extends Component implements HasForms, HasTable, HasActions, Ha
                                     ->label('Added'),
                             ])->columns(1)
                     ])
-            ])->paginated(false);
+            ]);
     }
 
-    public function render(): View
+    public function render()
     {
-        return view('livewire.guest-index')
+        return view('livewire.guest-books')
             ->layout('components.layouts.app');
     }
 }
