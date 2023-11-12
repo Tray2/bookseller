@@ -5,7 +5,6 @@ namespace App\Livewire;
 use App\Models\OpenHours;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
-use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Concerns\InteractsWithTable;
@@ -25,19 +24,11 @@ class GuestDeviatingOpeningHours extends Component implements HasForms, HasTable
                 ->whereNotNull('date')
                 ->orderBy('date'))
             ->columns([
-                TextColumn::make('date')
-                    ->label('Deviating Dates')
+                TextColumn::make('day')
                     ->formatStateUsing(function (OpenHours $record) {
-                        $date = date_create($record->date);
-                        return date_format($date, 'M dS');
-                    }),
-                TextColumn::make('open_hour')
-                    ->label(''),
-                TextColumn::make('')
-                    ->label('')
-                    ->default('-'),
-                TextColumn::make('close_hour')
-                    ->label(''),
+                        $date = new \DateTime($record->date);
+                        return "{$date->format('M dS')}: {$record->open_hour} - {$record->close_hour}";
+                    })->label('Deviating Dates'),
             ])->paginated(false);
     }
 

@@ -25,8 +25,7 @@ class GuestOpeningHours extends Component implements HasForms, HasTable
                 TextColumn::make('day')
                     ->formatStateUsing(function (OpenHours $record) {
                         return "{$record->day}: {$record->open_hour} - {$record->close_hour}";
-                    })->label('Open')
-                ,
+                    })->label('Open'),
             ])
             ->paginated(false);
     }

@@ -52,20 +52,30 @@ class GuestContact extends Component implements HasForms, HasInfolists
                             ->size(IconEntrySize::Small)
                             ->label('')
                             ->icon('icon-twitter-logo')
+                            ->default('')
                             ->url(function (string $state) {
                                 return "https://twitter.com/{$state}";
-                            }, true),
+                            }, true)
+                            ->hidden(function ($state) {
+                                return $state === '';
+                            }),
                         IconEntry::make('social.instagram')
                             ->size(IconEntrySize::Small)
                             ->label('')
+                            ->default('')
                             ->icon('icon-instagram-logo')
                             ->url(function (string $state) {
                                 return "https://instagram.com/{$state}";
-                            }, true),
-
+                            }, true)
+                            ->hidden(function ($state) {
+                                return $state === '';
+                            }),
                     ])
                     ->columns(2)
                     ->collapsible()
+                    ->hidden(function (Contact $record) {
+                       return ($record->social['twitter'] === null && $record->social['instagram'] === null);
+                    }),
             ]);
     }
 

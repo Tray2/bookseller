@@ -3,10 +3,9 @@
         <script>
             let caret = document.querySelector('#guest-opening-hours thead tr th');
             caret.classList.add('flex');
-            caret.innerHTML += `<svg class="fi-icon-btn-icon h-5 w-5"
+            caret.innerHTML += `<svg class="fi-icon-btn-icon h-5 w-5 fill-stone-200"
                                      xmlns="http://www.w3.org/2000/svg"
                                      viewBox="0 0 20 20"
-                                     fill="gray"
                                      aria-hidden="true"
                                 >
                                     <path
@@ -19,18 +18,21 @@
                                 </svg>`;
 
             caret.lastChild.classList.add('rotate-180');
+            caret.parentElement.parentElement.classList.add('bg-violet-950');
+            caret.firstElementChild.firstElementChild.classList.add('text-stone-200', 'text-base');
+            caret.firstElementChild.firstElementChild.classList.remove('text-sm');
 
             document.querySelector('#guest-opening-hours').addEventListener('click', function() {
                 let tbody = document.querySelector('#guest-opening-hours tbody');
                 tbody.classList.toggle('is-hidden');
                 caret.lastChild.classList.toggle('rotate-180');
             });
-
         </script>
 
         <style>
             .is-hidden {
                 display: none;
             }
+
         </style>
     </div>
