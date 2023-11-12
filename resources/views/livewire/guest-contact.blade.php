@@ -1,3 +1,5 @@
 <div class="m-1 ml-0">
-    {{ $this->infolist }}
+    @if($this->infolist->record != [])
+        {{ $this->infolist }}
+    @endif
 </div>
