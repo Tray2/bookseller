@@ -1,3 +1,3 @@
-<div>
-    {{-- Be like water. --}}
-</div>
+<main class=" w-full m-5">
+    {{ $this->table }}
+</main>

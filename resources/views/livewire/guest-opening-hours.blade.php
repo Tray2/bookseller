@@ -1,4 +1,4 @@
-  <div id="guest-opening-hours" class="m-5">
+  <div id="guest-opening-hours" class="mt-5 mr-1 ml-0">
         {{ $this->table }}
         <script>
             let caret = document.querySelector('#guest-opening-hours thead tr th');

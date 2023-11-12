@@ -7,6 +7,7 @@ use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -30,7 +31,10 @@ class ImagesRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('book_id')
             ->columns([
-                TextColumn::make('name'),
+                ImageColumn::make('name')
+                    ->label('Image')
+                    ->limitedRemainingText()
+                    ->height(150),
             ])
             ->filters([
                 //

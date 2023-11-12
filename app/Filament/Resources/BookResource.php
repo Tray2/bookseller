@@ -14,6 +14,7 @@ use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -34,42 +35,49 @@ class BookResource extends Resource
     {
         return $form
             ->schema([
-                Select::make('authors')
-                    ->relationship('authors', 'name')
-                    ->multiple()
-                    ->required(),
-                TextInput::make('title')
-                    ->required(),
-                TextInput::make('published')
-                    ->required(),
-                TextInput::make('price')
-                    ->required(),
-                TextInput::make('discounted_price')
-                    ->nullable(),
-                TextInput::make('isbn')
-                    ->nullable(),
-                Select::make('edition_id')
-                    ->label('Edition')
-                    ->required()
-                    ->searchable()
-                    ->options(Edition::all()->pluck('name', 'id')),
-                Select::make('genre_id')
-                    ->label('Genre')
-                    ->required()
-                    ->searchable()
-                    ->options(Genre::all()->pluck('name', 'id')),
-                Select::make('format_id')
-                    ->label('Format')
-                    ->required()
-                    ->searchable()
-                    ->options(Format::all()->pluck('name', 'id')),
-                Select::make('condition_id')
-                    ->label('Condition')
-                    ->required()
-                    ->searchable()
-                    ->options(Condition::all()->pluck('name', 'id')),
-                RichEditor::make('comment')
-                    ->nullable(),
+                Section::make()
+                    ->schema([
+                        Select::make('authors')
+                            ->relationship('authors', 'name')
+                            ->multiple()
+                            ->required(),
+                        TextInput::make('title')
+                            ->required(),
+                        TextInput::make('published')
+                            ->required(),
+                        TextInput::make('price')
+                            ->required(),
+                        TextInput::make('discounted_price')
+                            ->nullable(),
+                        TextInput::make('isbn')
+                            ->nullable(),
+                        Select::make('edition_id')
+                            ->label('Edition')
+                            ->required()
+                            ->searchable()
+                            ->options(Edition::all()->pluck('name', 'id')),
+                        Select::make('genre_id')
+                            ->label('Genre')
+                            ->required()
+                            ->searchable()
+                            ->options(Genre::all()->pluck('name', 'id')),
+                        Select::make('format_id')
+                            ->label('Format')
+                            ->required()
+                            ->searchable()
+                            ->options(Format::all()->pluck('name', 'id')),
+                        Select::make('condition_id')
+                            ->label('Condition')
+                            ->required()
+                            ->searchable()
+                            ->options(Condition::all()->pluck('name', 'id')),
+                    ])->columns(2),
+                Section::make()
+                    ->schema([
+                        RichEditor::make('comment')
+                            ->nullable()
+                            ->columns(1),
+                    ]),
             ]);
     }
 

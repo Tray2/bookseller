@@ -19,7 +19,7 @@
     @vite('resources/css/app.css')
 </head>
 
-<body class="antialiased">
+<body class="antialiased bg-gray-50">
 <div class="container mx-auto">
     <header
         class="fi-sidebar-header flex h-16 items-center bg-white ring-1 ring-gray-950/5 dark:bg-gray-900 dark:ring-white/5 lg:shadow-sm">
